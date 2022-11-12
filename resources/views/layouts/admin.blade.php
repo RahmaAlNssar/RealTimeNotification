@@ -34,7 +34,7 @@
         </div>
         @include('partials.backend.footer')
     </div>
-    <script src="{{ asset('build/assets/app.ab93cf8a.js') }}"></script>
+
     @include('partials.backend.scripts')
 </body>
 </html>

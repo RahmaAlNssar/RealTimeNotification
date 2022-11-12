@@ -22,13 +22,14 @@
 
                 <x-text-input id="username" class="block mt-1 w-full" type="text" name="{{ config('fortify.username') }}" :value="old('username')" required autofocus />
             </div>
-            @else
+            @endif
+            {{-- @else
             <div>
                 <x-input-label for="email" :value="__('Email')" />
 
                 <x-text-input id="email" class="block mt-1 w-full" type="email" name="{{ config('fortify.username') }}" :value="old('email')" required autofocus />
             </div>
-            @endif
+            @endif --}}
             <!-- Email Address -->
 
 

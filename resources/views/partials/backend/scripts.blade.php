@@ -1,3 +1,4 @@
+
 <script src="{{ asset('assets/backend/plugins/jquery/jquery.min.js')}}"></script>
 <!-- jQuery UI 1.11.4 -->
 <script src="{{ asset('assets/backend/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
@@ -52,4 +53,16 @@
  {{-- sweetAler2 start --}}
  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
  {{-- sweetAlert2 end --}}
+ <script>
+    const userId = {{ auth()->id() }}
+
+ </script>
+
+@vite(['resources/js/app.js'])
+<script>
+
+</script>
+ <script src="https://js.pusher.com/7.2/pusher.min.js"></script>
+
+
 @stack('scripts')

@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Config;
 
 
 
-Route::prefix('admin')->middleware(['auth:admin'])->as('admin.')->group(function () {
+Route::middleware(['auth:admin'])->as('admin.')->group(function () {
 
     Route::resource('admins','App\Http\Controllers\Backend\AdminController');
     Route::post('admins/{id}',[App\Http\Controllers\Backend\AdminController::class,'updateStatus'])->name('admins.update_status');

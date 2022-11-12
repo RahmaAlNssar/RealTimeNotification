@@ -34,9 +34,11 @@ class FortifyServiceProvider extends ServiceProvider
             config(['fortify.prefix' => 'admin']);
              config(['fortify.home' => 'dashboard']);
              config(['fortify.features'=>[]]);
-        }else{
+        }
+        else{
             config(['fortify.prefix' => '']);
             config(['fortify.home' => '/']);
+
         }
         $this->app->instance(LogoutResponse::class, new class implements LogoutResponse {
             public function toResponse($request)
@@ -54,9 +56,9 @@ class FortifyServiceProvider extends ServiceProvider
     public function boot()
     {
 
-        Fortify::createUsersUsing(CreateNewUser::class);
-        Fortify::updateUserProfileInformationUsing(UpdateUserProfileInformation::class);
-        Fortify::updateUserPasswordsUsing(UpdateUserPassword::class);
+       Fortify::createUsersUsing(CreateNewUser::class);
+       Fortify::updateUserProfileInformationUsing(UpdateUserProfileInformation::class);
+       Fortify::updateUserPasswordsUsing(UpdateUserPassword::class);
         Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
         if(config('fortify.guard') == 'admin'){
             Fortify::authenticateUsing([new AuthenticateAdmin,'authenticated']);
@@ -76,21 +78,24 @@ class FortifyServiceProvider extends ServiceProvider
 
 
         Fortify::loginView(function () {
-
+            if(request()->is('admin/*')){
             return view('auth.login');
+            }else{
+                return abort(404, 'not found');
+            }
         });
 
-        Fortify::registerView(function () {
-            return view('auth.register');
-        });
+        // Fortify::registerView(function () {
+        //     return view('auth.register');
+        // });
 
-        Fortify::requestPasswordResetLinkView(function () {
-            return view('auth.forgot-password');
-        });
+        // Fortify::requestPasswordResetLinkView(function () {
+        //     return view('auth.forgot-password');
+        // });
 
-        Fortify::resetPasswordView(function () {
-            return view('auth.reset-password');
-        });
+        // Fortify::resetPasswordView(function () {
+        //     return view('auth.reset-password');
+        // });
 
         // Fortify::authenticateUsing(function (Request $request) {
         //     if(request()->is('/admin/login')){

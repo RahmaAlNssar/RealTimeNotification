@@ -22,8 +22,8 @@ class AdminSeeder extends Seeder
             'username' => Str::random(10),
             'password' => Hash::make('password'),
             'email' => 'admin@gmail.com',
-            'is_super-admin'=>rand(0,1),
-            'status'=>rand(0,1)
+            'is_super-admin'=>1,
+            'status'=>1
         ]);
     }
 }
