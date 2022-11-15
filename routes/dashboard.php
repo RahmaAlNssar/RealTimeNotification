@@ -23,6 +23,10 @@ Route::middleware(['auth:admin'])->as('admin.')->group(function () {
     Route::resource('admins','App\Http\Controllers\Backend\AdminController');
     Route::post('admins/{id}',[App\Http\Controllers\Backend\AdminController::class,'updateStatus'])->name('admins.update_status');
     Route::delete('multi_delete',[App\Http\Controllers\Backend\AdminController::class,'MultiDelete'])->name('admins.mult.delete');
+
+    Route::resource('complains','App\Http\Controllers\Backend\ComplainController');
+    Route::get('complains/update/{id}',[App\Http\Controllers\Backend\ComplainController::class,'updateStatus'])->name('complains.update_status');
+    Route::delete('multi_delete_complains',[App\Http\Controllers\Backend\ComplainController::class,'MultiDelete'])->name('complains.mult.delete');
 });
 
 

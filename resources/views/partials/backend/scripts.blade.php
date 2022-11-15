@@ -47,7 +47,8 @@
  {{-- Yajra DataTable End --}}
 
  {{-- custem ajax and js statr --}}
- <script src="{{ asset('assets/backend/custom/script.js') }}"></script>
+
+ <script src="{{ asset('assets/backend/custom/moment.js') }}"></script>
  {{-- custem ajax and js end --}}
 
  {{-- sweetAler2 start --}}
@@ -64,5 +65,5 @@
 </script>
  <script src="https://js.pusher.com/7.2/pusher.min.js"></script>
 
-
+ <script src="{{ asset('assets/backend/custom/script.js') }}"></script>
 @stack('scripts')

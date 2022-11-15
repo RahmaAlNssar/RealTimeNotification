@@ -15,15 +15,15 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 class NotificationsEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
-    public $NotificationsEvent;
+    public $complain;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($NotificationsEvent)
+    public function __construct($complain)
     {
-        $this->NotificationsEvent = $NotificationsEvent;
+        $this->complain = $complain;
     }
 
     /**
@@ -33,8 +33,9 @@ class NotificationsEvent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        $user = $this->NotificationsEvent->user_id;
-        return new PrivateChannel('Notification.'.$user);
+        // $user = $this->complain->user_id;
+        $user =Admin::first();
+        return new Channel('Notification.'.$user->id);
     }
 
     public function broadcastAs(){

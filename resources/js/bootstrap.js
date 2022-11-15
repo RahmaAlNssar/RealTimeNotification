@@ -36,18 +36,53 @@ window.Echo = new Echo({
 });
 
 Pusher.logToConsole = true;
-window.Echo.private(`App.Models.Admin.${userId}`).listen('.Notification', function (e) {
-
-    console.log(e);
-
+const pusher = new Pusher('7a34c1f33d960fcba0be', {
+    cluster: 'ap2',
+    authEndpoint: '/broadcasting/auth',
+    auth: {
+        headers: {
+            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+        }
+    }
 });
+
+// window.Echo.private(`App.Models.Admin.${userId}`).listen('.Notification', function (e) {
+
+//     console.log("rahma");
+
+// });
 // var pusher = new Pusher('7a34c1f33d960fcba0be', {
 //     cluster: 'ap2',
 //     authEndpoint: "/broadcasting/auth"
 //   });
 
-// var channel = pusher.subscribe(`private-App.Models.Admin.${userId}`);
+var channel = pusher.subscribe(`Notification.${userId}`);
+var count = $('#notifications_count').text();
+var route = $('#href').attr('href');
 
-// channel.bind(`\\Illuminate\\Notifications\\Events\\BroadcastNotificationCreated`, function(data) {
-//  alert("gjg");
+
+channel.bind(`NotificationEvent`, function(data) {
+
+count++;
+if(count > 99){
+    count = '99+';
+}
+
+$('#notifications_count').text(count);
+
+$('#newNotifications').prepend(`
+<div class="dropdown-divider"></div>
+<a href="`+route+`" class="dropdown-item" >
+<i class="fas fa-user mr-2"></i>  From: ${data.complain.user.name}
+<br>
+  <i class="fas fa-envelope mr-2"></i> ${data.complain.body}
+  <span class="float-right text-muted text-sm">${moment(
+    data.complain.created_at
+).fromNow()}</span>
+</a>`);
+  });
+
+//   $(document).on('click','#href',function(e){
+//     e.preventDefault();
+//    $("#color").css("background-color", "#5c8a8a") ;
 //   });

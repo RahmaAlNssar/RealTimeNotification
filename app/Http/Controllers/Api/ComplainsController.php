@@ -28,11 +28,12 @@ class ComplainsController extends Controller
             'user_id'=>$user->id,
             'body'=>$request->body
         ]);
-
+        $complain = $complain->load('user');
       // $complains = Complain::count();
         DB::commit();
-        $admin = Admin::where('is_super-admin',1)->first();
-        $admin->notify(new notifyNotification($complain));
+        event(new NotificationsEvent($complain));
+        // $admin = Admin::where('is_super-admin',1)->first();
+        // $admin->notify(new notifyNotification($complain));
 
 
 

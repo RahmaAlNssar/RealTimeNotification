@@ -43,7 +43,15 @@
                         </p>
                     </a>
                 </li>
+                <li class="nav-item ">
+                    <a href="{{ route('admin.complains.index') }}" class="nav-link {{ request()->segment(2) === 'complains' ? 'active' : '' }}"">
+                        <i class="nav-icon fas fa-bell"></i>
+                        <p>
 
+                            الشكاوي
+                        </p>
+                    </a>
+                </li>
 
 
             </ul>

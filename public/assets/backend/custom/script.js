@@ -1,5 +1,7 @@
 // const { inProduction } = require("laravel-mix");
 
+
+
 // const { then } = require("laravel-mix");
 
 function toggle(source) {
@@ -78,6 +80,7 @@ $(document).on("submit", ".submit", function (e) {
         success: function (response) {
             swal.fire(response.title, response.message, response.status);
             form.trigger("reset");
+
         },
         error: function (err) {
             $.each(err.responseJSON.errors, function (key, value) {
@@ -233,12 +236,58 @@ $(document).on("submit", "#form", function (e) {
 
 
 });
-// $(document).on("click", "#upload_link", function (e) {
 
-//     e.preventDefault();
+//تلوين السطر من جدول الاشعارات يلي برحلو من الجرس
+$(document).on('click','#href',function(e){
+    e.preventDefault();
+    var route = $('#href').attr('href');
+    var str = route.lastIndexOf('/');
+    var id = route.substring(45,route.length);
 
-//     var input= $('input[type=file]').val();
-//     alert(input);
+    // const url = new URL(route);
+    // let id = url.pathname.slice(24);
+    var count = $('#notifications_count').text();
 
-// });
+    $.ajax({
+        type: 'get',
+        url: route,
+       // data: data,
+       // dataType: "json",
+        success: function (response) {
+            count--;
+            $(`#color_${id}`).css("background-color", "#5c8a8a") ;
+            location.reload(false);
+        },
+        error: function (err) {
+           console.log(err);
+        },
+    });
+
+  });
+
+  //auto update table after insert rows into db
+  function updateTable() {
+
+    $.ajax({
+        success: function (data) {
+
+            $(".example_complain").DataTable().ajax.reload()
+        }
+
+    });
+}
+  $(document).ready(function (e) {
+    updateTable();
+    setInterval(updateTable , 3000);
+});
+
+
+$(document).on("click", "#upload_link", function (e) {
+
+    e.preventDefault();
+
+    var input= $('input[type=file]').val();
+    alert(input);
+
+});
 
